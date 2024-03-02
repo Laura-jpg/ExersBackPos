@@ -1,3 +1,5 @@
+import re
+
 class Cliente:
     def __init__(self, nome, endereco, cep, cpf):
         self.nome = nome
@@ -30,6 +32,9 @@ class Cliente:
         self.cpf = cpf
 
 
+validaCEP = re.compile(r"^([0-9]{5}[-][0-9]{3})$")
+validaCPF = re.compile(r"\d{3}\.\d{3}\.\d{3}\-\d{2}")
+
 def exibirDados(cliente):
     print("Nome:", cliente.get_nome())
     print("Endereço:", cliente.get_endereco())
@@ -47,7 +52,18 @@ def main():
         nome = input("Digite o nome do cliente: ")
         endereco = input("Digite o endereço do cliente: ")
         cep = input("Digite o CEP do cliente: ")
+        if validaCEP.search(cep):
+            print(f"\nO CEP: {cep} é válido!!\n")
+        else:
+            print(f"\nO CEP: {cep} é inválido!!\n")
+            break
         cpf = input("Digite o CPF do cliente: ")
+        if validaCPF.search(cpf):
+            print(f" \nO CPF: {cpf} é válido")
+        else:
+            print(f"\nO CPF: {cpf} é inválido")
+            break
+
         
         cliente = Cliente(nome, endereco, cep, cpf)
         clientes.append(cliente)
